@@ -1,8 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long long
-
 struct custom_hash {
     static uint64_t splitmix64(uint64_t x) {
         x += 0x9e3779b97f4a7c15;
@@ -19,38 +17,38 @@ struct custom_hash {
 
 void solve()
 {
-    int N,K;
-    cin>>N>>K;
+    int N;
+    cin>>N;
 
     int ar[N];
-    for(int i=0;i<N;i++)cin>>ar[i];
-
-    int l = 0,r = -1,ans = 0;
-    unordered_map<int,int,custom_hash> m1;
-
-    int unique = 0;
-    while(r!=N)
+    for(int i=0;i<N;i++)
     {
-        if(unique > K)
-        {
-            m1[ar[l]]--;
-
-            if(m1[ar[l]] == 0)unique--;
-            l++;
-        }
-        else
-        {
-            ans+= (r++-l+1);
-
-            if(r!=N)
-            {
-                m1[ar[r]]++;
-                if(m1[ar[r]]==1)unique++;
-            }
-        }
+        cin>>ar[i];
     }
 
-    cout<<ans<<'\n';
+    vector<int> sort_ar(N);
+    unordered_map<int,int,custom_hash> psss;
+
+    for(int i=0;i<N;i++)
+    {
+        sort_ar[i] = ar[i];
+        psss[ar[i]] = i;
+    }
+
+    sort(sort_ar.begin(),sort_ar.end());
+
+    int guns = 1,last = psss[sort_ar[0]];
+
+    for(int i=1;i<N;i++)
+    {
+        int bullt = sort_ar[i];
+        int pos = psss[sort_ar[i]];
+        if(pos > last)guns++;
+
+        last = pos;
+    }
+
+    cout << guns << '\n';
 }
 
 signed main()
@@ -63,7 +61,9 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     
-    solve();
+    int Testcases;
+    cin>>Testcases;
+    while(Testcases--)solve();
     
     return 0;
 }
