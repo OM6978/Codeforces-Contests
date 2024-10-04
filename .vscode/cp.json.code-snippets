@@ -1,0 +1,265 @@
+{
+	"me": {
+		"prefix": "me",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"using namespace std;",
+			"",
+			"void solve()",
+			"{",
+			"    $0",
+			"}",
+			"",
+			"signed main()",
+			"{",
+			"    #ifndef ONLINE_JUDGE",
+			"        freopen(\"/home/om/Acads/Codeforces-Contests/input.txt\", \"r\", stdin);",
+			"        freopen(\"/home/om/Acads/Codeforces-Contests/output.txt\", \"w\", stdout);",
+			"    #endif",
+			"",
+			"    ios_base::sync_with_stdio(0);",
+			"    cin.tie(0);",
+			"    ",
+			"    solve();",
+			"",
+			"    return 0;",
+			"}"
+		],
+		"description": "me"
+	  },
+
+	"testme": {
+		"prefix": "testme",
+		"body": [
+			"#include <bits/stdc++.h>",
+			"using namespace std;",
+			"",
+			"void solve()",
+			"{",
+			"    $0",
+			"}",
+			"",
+			"signed main()",
+			"{",
+			"    #ifndef ONLINE_JUDGE",
+			"        freopen(\"/home/om/Acads/Codeforces-Contests/input.txt\", \"r\", stdin);",
+			"        freopen(\"/home/om/Acads/Codeforces-Contests/output.txt\", \"w\", stdout);",
+			"    #endif",
+			"",
+			"    ios_base::sync_with_stdio(0);",
+			"    cin.tie(0);",
+			"    ",
+			"    int Testcases;",
+			"    cin>>Testcases;",
+			"    while(Testcases--)solve();",
+			"    ",
+			"    return 0;",
+			"}"
+		],
+		"description": "test cases"
+	  },
+
+	  "arrayinput": {
+		"prefix": "arrrrrinp",
+		"body": [
+		  "int ar[N];",
+		  "for(int i=0;i<N;i++)",
+		  "{",
+		  "    cin>>ar[i];",
+		  "}"
+		],
+		"description": "arrayinput"
+	  },
+
+	  "power with modulo": {
+		"prefix": "modulo_power",
+		"body": [
+		  "int power(int x, int y, int p)",
+		  "{",
+		  "    int res = 1;",
+		  "    while (y > 0)",
+		  "    {",
+		  "        if (y % 2 == 1)",
+		  "        res = (res * x)%p;",
+		  "",
+		  "        y = y >> 1;",
+		  "        x = (x * x) % p;",
+		  "    }",
+		  "    return res % p;",
+		  "}"
+		],
+		"description": "power with modulo"
+	  },
+
+	  "largest sum of a subarray": {
+		"prefix": "max_subarr_sum",
+		"body": [
+		  "int largestsubarrsum(int* arr,int N)",
+		  "{",
+		  "    int sum = arr[0],maxsum = arr[0];",
+		  "    if(sum<=0)sum=0;",
+		  "",
+		  "    for(int i=1;i<N;i++)",
+		  "    {",
+		  "        sum+=arr[i];",
+		  "        if(maxsum<sum)",
+		  "            maxsum=sum;",
+		  "        if(sum<=0)",
+		  "            sum=0;",
+		  "    }",
+		  "",
+		  "    return maxsum;",
+		  "}"
+		],
+		"description": "largest sum of a subarray"
+	  },
+
+	  "tree input using vector of vectors": {
+		"prefix": "list_tree_input",
+		"body": [
+		  "vector<vector<int>> tree(N+1);",
+		  "",
+		  "for(int i=0;i<N-1;i++)",
+		  "{",
+		  "    int u,v;",
+		  "    cin>>u>>v;",
+		  "",
+		  "    tree[u].push_back(v);",
+		  "    tree[v].push_back(u);",
+		  "}"
+		],
+		"description": "tree input using vector of vectors"
+	  },
+
+	  "Find all factors of a number": {
+		"prefix": "findfactors",
+		"body": [
+		  "vector<int> factors;",
+		  "",
+		  "void findfactors(int N)",
+		  "{",
+		  "    int sqroot = (int)sqrt(N);",
+		  "    for(int i = 1; i <= sqroot; i++)",
+		  "    {",
+		  "        if(N % i == 0)",
+		  "        {",
+		  "            factors.push_back(i);",
+		  "            factors.push_back(N/i);",
+		  "        }",
+		  "    }",
+		  "}"
+		],
+		"description": "Find all factors of a number"
+	  },
+
+	  "Segment tree generator": {
+		"prefix": "Segtree",
+		"body": [
+		  "int operation(int a,int b){return a^b;}",
+		  "",
+		  "int getMid(int s, int e){return s + (e -s)/2;} ",
+		  "",
+		  "int getopUtil(int *st, int ss, int se, int qs, int qe, int si) ",
+		  "{",
+		  "    if (se < qs || ss > qe)",
+		  "        return 0; ",
+		  "",
+		  "    if(qs <= ss && qe >= se)",
+		  "        return st[si];",
+		  "",
+		  "    int mid = getMid(ss, se);",
+		  "    return operation(getopUtil(st, ss, mid, qs, qe, 2*si+1),getopUtil(st, mid+1, se, qs, qe, 2*si+2)); ",
+		  "}",
+		  "",
+		  "int getop(int *st, int n, int qs, int qe) ",
+		  "{",
+		  "    return getopUtil(st, 0, n-1, qs, qe, 0);",
+		  "}",
+		  "",
+		  "int constructSTUtil(int arr[], int ss, int se, int *st, int si) ",
+		  "{",
+		  "    if (ss==se) ",
+		  "    {",
+		  "        st[si] = arr[ss]; ",
+		  "        return arr[ss];",
+		  "    }",
+		  "",
+		  "    int mid = getMid(ss, se); ",
+		  "    st[si] = operation(constructSTUtil(arr, ss, mid, st, si*2+1),constructSTUtil(arr, mid+1, se, st, si*2+2));",
+		  "",
+		  "    return st[si]; ",
+		  "} ",
+		  "",
+		  "int *constructST(int arr[], int n) ",
+		  "{",
+		  "    int x = (int)(ceil(log2(n))); ",
+		  "    int max_size = 2*(int)pow(2, x) - 1; ",
+		  "    int *st = new int[max_size]; ",
+		  "",
+		  "    constructSTUtil(arr, 0, n-1, st, 0);",
+		  "    return st; ",
+		  "}"
+		],
+		"description": "Segment tree generator"
+	  },
+
+	  "custom_map": {
+		"prefix": "unorder_C",
+		"body": [
+		  "struct custom_hash {",
+		  "    static uint64_t splitmix64(uint64_t x) {",
+		  "        x += 0x9e3779b97f4a7c15;",
+		  "        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;",
+		  "        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;",
+		  "        return x ^ (x >> 31);",
+		  "    }",
+		  "",
+		  "    size_t operator()(uint64_t x) const {",
+		  "        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();",
+		  "        return splitmix64(x + FIXED_RANDOM);",
+		  "    }",
+		  "};"
+		],
+		"description": "custom_map"
+	  },
+
+	  "Take Matrix Input": {
+		"prefix": "maaaaaaatinp",
+		"body": [
+			"int mat[N][M];",
+			"for(int i=0;i<N;i++)",
+			"{",
+			"    for(int j=0;j<M;j++)",
+			"    {",
+			"        cin>>mat[i][j];",
+			"    }",
+			"}"
+		],
+		"description": "Take Matrix Input"
+	},
+
+	"Disjoint Set Union basic functions": {
+	"prefix": "DSU",
+	"body": [
+		"int get_a(int a,int* P)",
+		"{",
+		"    if(P[a] != a)P[a] = get_a(P[a],P);",
+		"    return P[a];",
+		"}",
+		"",
+		"void union_s(int a,int b,int* P,int* rank)",
+		"{",
+		"    int l1 = get_a(a,P);",
+		"    int l2 = get_a(b,P);",
+		"",
+		"    if(l1 == l2)return;",
+		"",
+		"    if(rank[l1] > rank[l2])l2 = l1 + l2 - (l1=l2);",
+		"",
+		"    P[l1]=l2;",
+		"    rank[l2]+= (rank[l1]==rank[l2]);",
+		"}"
+	],
+	"description": "Disjoint Set Union basic functions"
+	}
+}
