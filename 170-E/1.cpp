@@ -1,18 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long
-
 void solve()
 {
-    int N;
-    cin>>N;
+    string s,t;
+    cin>>s>>t;
 
-    int x,y;
-    cin>>x>>y;
+    int N = min(s.size(),t.size());
 
-    if(y > x)cout<< (N + x - 1)/x << '\n';
-    else cout<< (N + y-1)/y << '\n';
+    int ans = s.size() + t.size();
+    int lol = 0;
+    
+    for(int i=0;i<N;i++)
+    {
+        if(s[i] == t[i])ans--,lol=1;
+        else break;
+    }
+
+    cout << ans + lol<< '\n';
 }
 
 signed main()

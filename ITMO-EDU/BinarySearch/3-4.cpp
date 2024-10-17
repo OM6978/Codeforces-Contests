@@ -1,40 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> ans;
+int* parent;
 
-bool give_nodes(int num,int u,int selected,vector<vector<pair<int,int>>> & adj,int N,int D)
+bool good(int num,vector<vector<pair<int,int>>> & adj,int N,int D,bool* vis)
 {
-    if(u == 1)return true;
-    if(selected == D)return false;
+    queue<int> q;
+    q.push(N);
 
-    for(auto next : adj[u])
+    int selected = 0;
+    while(q.size())
     {
-        int ci = next.second;
-        if(ci <= num)
+        if(selected > D)return false;
+
+        int cnt = q.size();
+        while(cnt--)
         {
-            ans.push_back(next.first);
-            bool lol = give_nodes(num,next.first,selected + 1,adj,N,D);
+            int u = q.front();
+            if(u == 1)return true;
 
-            if(lol)return true;
-            else ans.pop_back();
+            for(auto &[v,x] : adj[u])
+            {
+                if(!vis[v] && x<=num)
+                {
+                    parent[v] = u;
+                    q.push(v);
+                    vis[v]=1;
+                }
+            }
+
+            q.pop();
         }
+
+        selected++;
     }
-
-    return false;
-}
-
-int good(int num,int u,int selected,vector<vector<pair<int,int>>> & adj,int N,int D)
-{
-    if(u == 1)return true;
-    if(selected == D)return false;
-
-    for(auto next : adj[u])
-    {
-        int ci = next.second;
-        if(ci <= num && good(num,next.first,selected+1,adj,N,D))return true;
-    }
-
+    
     return false;
 }
 
@@ -53,26 +53,33 @@ void solve()
         adj[v].push_back({u,c});
     }
 
+    bool vis[N+1];
+
     int l = -1,r = 1e9 + 1;
+    parent = new int[N+1];
+
     while(l+1<r)
     {
-        int mid = (l+r)>>1;
-        if(good(mid,N,0,adj,N,D))r = mid;
+        for(int i=1;i<=N;i++)vis[i] = false;
+
+        int mid = (l+r)/2;
+        if(good(mid,adj,N,D,vis))r = mid;
         else l = mid;
     }
 
-    if(r == (int)(1e9 + 1))cout << -1 << '\n';
-    else
-    {
-        ans.push_back(N);
-        give_nodes(r,N,0,adj,N,D);
+    if(r == 1e9+1){cout << -1 << '\n';return;}
 
-        reverse(ans.begin(),ans.end());
+    for(int i=1;i<=N;i++)vis[i] = 0;
+    good(r,adj,N,D,vis);
 
-        cout << ans.size()-1 << '\n';
-        for(int a : ans)cout << a << ' ';
-        cout << '\n';
-    }
+    vector<int> ans;
+    int curr = 1;
+    while(parent[curr]!=N)curr = parent[curr],ans.push_back(curr);
+    delete parent;
+
+    cout << ans.size() + 1 << '\n' << 1 << ' ';
+    for(int a : ans)cout << a << ' ';
+    cout << N << '\n';
 }
 
 signed main()

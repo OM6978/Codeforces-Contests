@@ -1,18 +1,30 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long
-
 void solve()
 {
-    int N;
-    cin>>N;
+    int N,R;
+    cin>>N>>R;
 
-    int x,y;
-    cin>>x>>y;
+    int ar[N],doubles = 0,singles = 0;
+    for(int i=0;i<N;i++)
+    {
+        cin>>ar[i];
+        doubles+= ar[i]/2;
+        singles += ar[i]%2;
+    }
 
-    if(y > x)cout<< (N + x - 1)/x << '\n';
-    else cout<< (N + y-1)/y << '\n';
+    R -= doubles;
+
+    int rem = singles - R;
+    if(rem < 0)
+    {
+        cout << N << '\n';
+    }
+    else
+    {
+        cout << R - rem + doubles*2 << '\n';
+    }
 }
 
 signed main()

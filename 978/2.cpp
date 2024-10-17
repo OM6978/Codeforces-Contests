@@ -1,18 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long
+#define int long long
 
 void solve()
 {
-    int N;
-    cin>>N;
+    int N,x;
+    cin>>N>>x;
 
-    int x,y;
-    cin>>x>>y;
+    int ar[N];
+    for(int i=0;i<N;i++)cin>>ar[i];
 
-    if(y > x)cout<< (N + x - 1)/x << '\n';
-    else cout<< (N + y-1)/y << '\n';
+    
 }
 
 signed main()

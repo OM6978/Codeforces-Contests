@@ -1,18 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long
-
 void solve()
 {
-    int N;
-    cin>>N;
+    int x = -3/2;
 
-    int x,y;
-    cin>>x>>y;
-
-    if(y > x)cout<< (N + x - 1)/x << '\n';
-    else cout<< (N + y-1)/y << '\n';
+    cout << -x << '\n';
 }
 
 signed main()
@@ -25,9 +18,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(0);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
-    
+    solve();
+
     return 0;
 }

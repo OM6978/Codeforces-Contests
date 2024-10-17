@@ -1,18 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define int long
+#define int long long
 
 void solve()
 {
     int N;
     cin>>N;
 
-    int x,y;
-    cin>>x>>y;
+    string s;
+    cin>>s;
 
-    if(y > x)cout<< (N + x - 1)/x << '\n';
-    else cout<< (N + y-1)/y << '\n';
+    int left = 0,ans = 0;
+    for(int i=N-1;i>=0;i--)
+    {
+        if(s[i] == '0')left++;
+        else
+        {
+            if(left>0)
+            {
+                ans+=i+1;
+                left--;
+            }
+            else left++;
+        }
+    }
+
+    cout << ans << '\n';
 }
 
 signed main()

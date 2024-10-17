@@ -9,44 +9,41 @@ void solve()
     cin>>N;
 
     int ar[N];
-    for(int i=0;i<N;i++)
-    {
-        cin>>ar[i];
-    }
+    for(int i=0;i<N;i++)cin>>ar[i];
 
     vector<pair<int,int>> s1;
 
-    int last = ar[0];
+    s1.push_back({0,0});
+    s1.push_back({ar[0],1});
+
     for(int i=1;i<N;i++)
     {
-        if(ar[i] > last)
-        {
-            last = s1.back().first;
-            s1.push_back({ar[i],1});
-        }
-        else if(ar[i] == last)
-        {
-            auto curr = s1.back();
-            curr.second++;
-            s1.push_back(curr);
-        }
+        int prev_last = s1[s1.size()-2].first,last = s1.back().first;
+
+        if(ar[i] > last)s1.push_back({ar[i],1});
+        else if(ar[i] == last)(--s1.end())->second++;
         else
         {
-            int num = s1.back().first,cnt = s1.back().second;
-            if((num - last)*cnt + ar[i] >= last)
+            int cnt = s1.back().second;
+            if((last - prev_last)*cnt + ar[i] >= prev_last)
             {
+                int y = (last*cnt + ar[i])/(1+cnt);
+                int rem = (last*cnt + ar[i])%(1+cnt);
 
+                s1[s1.size()-1].first = y;
+                s1[s1.size()-1].second = cnt - rem + 1;
+                if(rem !=0)s1.push_back({y+1,rem});
             }
             else
             {
-                ar[i]+= (num - last)*cnt;
                 s1.pop_back();
-                s1.back()
+                s1[s1.size()-1].second+=cnt;
+                ar[i--]+= (last - prev_last)*cnt;
             }
         }
     }
 
-    cout << s1.back().first - s1[0].first << '\n';
+    cout << s1.back().first - s1[1].first << '\n';
 }
 
 signed main()
