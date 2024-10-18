@@ -91,6 +91,45 @@
 		"description": "power with modulo"
 	  },
 
+		"Division MOD": {
+		"prefix": "div_modulo",
+		"body": [
+			"int modInverse(unsigned long long n,  int MOD)",
+			"{",
+			"    return power(n, MOD - 2, MOD);",
+			"}"
+		],
+		"description": "Division MOD"
+	},
+
+		"Combinator": {
+		"prefix": "mod_comb",
+		"body": [
+			"int Combinator(int N,int K)",
+			"{",
+			"    return ((((fac[N] * modInverse(fac[K], MOD) )% MOD)* modInverse(fac[N - K], MOD)) % MOD)% MOD;",
+			"}"
+		],
+		"description": "Combinator"
+	},
+
+		"Factorial": {
+		"prefix": "mod_factorial",
+		"body": [
+			"int fac[(int)1e5+1];",
+			"",
+			"void calcFactorial()",
+			"{",
+			"    fac[0] = 1;",
+			"    for(int i=1;i<1e5+1;i++)",
+			"    {",
+			"        fac[i] = (fac[i-1] * i)%MOD;",
+			"    }",
+			"}"
+		],
+		"description": "Factorial"
+	},
+
 	  "largest sum of a subarray": {
 		"prefix": "max_subarr_sum",
 		"body": [
@@ -102,10 +141,8 @@
 		  "    for(int i=1;i<N;i++)",
 		  "    {",
 		  "        sum+=arr[i];",
-		  "        if(maxsum<sum)",
-		  "            maxsum=sum;",
-		  "        if(sum<=0)",
-		  "            sum=0;",
+		  "        maxsum = max(maxsum,sum);",
+		  "        sum = max(sum,0)",
 		  "    }",
 		  "",
 		  "    return maxsum;",
@@ -115,20 +152,20 @@
 	  },
 
 	  "tree input using vector of vectors": {
-		"prefix": "list_tree_input",
+		"prefix": "list_graph_input",
 		"body": [
-		  "vector<vector<int>> tree(N+1);",
+		  "vector<vector<int>> graph(N+1);",
 		  "",
 		  "for(int i=0;i<N-1;i++)",
 		  "{",
 		  "    int u,v;",
 		  "    cin>>u>>v;",
 		  "",
-		  "    tree[u].push_back(v);",
-		  "    tree[v].push_back(u);",
+		  "    graph[u].push_back(v);",
+		  "    graph[v].push_back(u);",
 		  "}"
 		],
-		"description": "tree input using vector of vectors"
+		"description": "graph input using vector of vectors"
 	  },
 
 	  "Find all factors of a number": {
@@ -201,10 +238,10 @@
 		  "}"
 		],
 		"description": "Segment tree generator"
-	  },
+	},
 
 	  "custom_map": {
-		"prefix": "unorder_C",
+		"prefix": "custom_hash",
 		"body": [
 		  "struct custom_hash {",
 		  "    static uint64_t splitmix64(uint64_t x) {",
@@ -221,7 +258,7 @@
 		  "};"
 		],
 		"description": "custom_map"
-	  },
+	},
 
 	  "Take Matrix Input": {
 		"prefix": "maaaaaaatinp",
@@ -238,28 +275,83 @@
 		"description": "Take Matrix Input"
 	},
 
-	"Disjoint Set Union basic functions": {
-	"prefix": "DSU",
-	"body": [
-		"int get_a(int a,int* P)",
-		"{",
-		"    if(P[a] != a)P[a] = get_a(P[a],P);",
-		"    return P[a];",
-		"}",
-		"",
-		"void union_s(int a,int b,int* P,int* rank)",
-		"{",
-		"    int l1 = get_a(a,P);",
-		"    int l2 = get_a(b,P);",
-		"",
-		"    if(l1 == l2)return;",
-		"",
-		"    if(rank[l1] > rank[l2])l2 = l1 + l2 - (l1=l2);",
-		"",
-		"    P[l1]=l2;",
-		"    rank[l2]+= (rank[l1]==rank[l2]);",
-		"}"
-	],
-	"description": "Disjoint Set Union basic functions"
+		"Disjoint Set Union basic functions": {
+		"prefix": "DSU",
+		"body": [
+			"int get_a(int a,int* P)",
+			"{",
+			"    if(P[a] != a)P[a] = get_a(P[a],P);",
+			"    return P[a];",
+			"}",
+			"",
+			"void union_s(int a,int b,int* P,int* rank)",
+			"{",
+			"    int l1 = get_a(a,P);",
+			"    int l2 = get_a(b,P);",
+			"",
+			"    if(l1 == l2)return;",
+			"",
+			"    if(rank[l1] > rank[l2])l2 = l1 + l2 - (l1=l2);",
+			"",
+			"    P[l1]=l2;",
+			"    rank[l2]+= (rank[l1]==rank[l2]);",
+			"}"
+		],
+		"description": "Disjoint Set Union basic functions"
+	},
+
+		"Palindrome checking": {
+		"prefix": "Rabin_Karp",
+		"body": [
+			"    int power(int x, int y, int p)",
+			"    {",
+			"        int res = 1;",
+			"        while (y > 0)",
+			"        {",
+			"            if (y % 2 == 1)",
+			"            res = (res * x)%p;",
+			"    ",
+			"            y = y >> 1;",
+			"            x = (x * x) % p;",
+			"        }",
+			"        return res % p;",
+			"    }",
+			"    ",
+			"    int modInverse(int n,int MOD){return power(n, MOD - 2, MOD);}",
+			"    ",
+			"    bool is_palindrome(int l,int r,int* rabin1,int* rabin2,int N)",
+			"    {",
+			"        int comp1,comp2;",
+			"        ",
+			"        comp1 = rabin1[r];",
+			"        comp2 = rabin2[l];",
+			"        ",
+			"        if(l!=0)comp1 = (comp1 - rabin1[l-1]+MOD)%MOD;",
+			"        if(r!=N-1)comp2 = (comp2 - rabin2[r+1]+MOD)%MOD;",
+			"        ",
+			"        comp1 = (comp1*modInverse(power(31,l,MOD),MOD))%MOD;",
+			"        comp2 = (comp2*modInverse(power(31,N - 1 - r,MOD),MOD))%MOD;",
+			"        ",
+			"        return comp1==comp2;",
+			"    }",
+			"",
+			"        int rabin1[N],rabin2[N];",
+			"        rabin1[0] = str[0]-'a',rabin2[N-1] = str[N-1]-'a';",
+			"        ",
+			"        int p = 31;",
+			"        for(int i=1;i<N;i++)",
+			"        {",
+			"            rabin1[i] = (rabin1[i-1] + (str[i]-'a')*p)%MOD;",
+			"            p = (p*31)%MOD;",
+			"        }",
+			"        ",
+			"        p = 31;",
+			"        for(int i=N-2;i>=0;i--)",
+			"        {",
+			"            rabin2[i] = (rabin2[i+1] + (str[i]-'a')*p)%MOD;",
+			"            p = (p*31)%MOD;",
+			"        }"
+		],
+		"description": "Palindrome checking"
 	}
 }
