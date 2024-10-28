@@ -3,7 +3,11 @@ using namespace std;
 
 void solve()
 {
-    
+    int N;
+    cin>>N;
+
+    if(N&1)cout << "Kosuke" << '\n';
+    else cout << "Sakurako" << '\n';
 }
 
 signed main()

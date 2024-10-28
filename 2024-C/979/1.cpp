@@ -3,7 +3,16 @@ using namespace std;
 
 void solve()
 {
-    
+    int N;
+    cin>>N;
+
+    int ar[N];
+    for(int i=0;i<N;i++)
+    {
+        cin>>ar[i];
+    }
+
+    cout << (N-1)*(*max_element(ar,ar+N) - *min_element(ar,ar+N)) << '\n';
 }
 
 signed main()

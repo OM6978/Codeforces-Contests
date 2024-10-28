@@ -7,7 +7,7 @@ void solve()
     cin>>N>>M;
 
     int ar[N];
-    vector<int> poss;
+    vector<int> poss; 
     for(int i=0;i<N;i++)
     {
         cin>>ar[i];
@@ -15,10 +15,10 @@ void solve()
     }
     poss.push_back(N);
 
-    int dp[M+1][M+1];
+    int dp[M+1];
     int ls_i[M+1],ls_s[M+1];
 
-    for(int i=0;i<=M;i++)dp[M][i] = 0;
+    for(int i=0;i<=M;i++)dp[i] = 0;
 
     for(int point = M-1;point>=0;point--)
     {
@@ -35,14 +35,14 @@ void solve()
         for(int intlgn = 0;intlgn <= point;intlgn++)
         {
             int strength = point - intlgn;
-            int ans1 = dp[point+1][intlgn+1] + ls_i[intlgn+1] + ls_s[strength];
-            int ans2 = dp[point+1][intlgn] + ls_i[intlgn] + ls_s[strength+1];
+            int ans1 = dp[intlgn+1] + ls_i[intlgn+1] + ls_s[strength];
+            int ans2 = dp[intlgn] + ls_i[intlgn] + ls_s[strength+1];
 
-            dp[point][intlgn] = max(ans1,ans2);
+            dp[intlgn] = max(ans1,ans2);
         }
     }
 
-    cout << dp[0][0] << '\n';
+    cout << dp[0] << '\n';
 }
 
 signed main()

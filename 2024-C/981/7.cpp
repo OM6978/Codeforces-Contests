@@ -3,7 +3,17 @@ using namespace std;
 
 void solve()
 {
-    
+    int N;
+    cin>>N;
+
+    int heights[N];
+    for(int i=0;i<N-1;i++)
+    {
+        int u,v;
+        cin>>u>>v;
+
+        
+    }
 }
 
 signed main()
