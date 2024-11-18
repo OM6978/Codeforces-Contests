@@ -6,15 +6,23 @@ void solve()
     int N;
     cin>>N;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    map<int,int> cnts;
+    int ar[N];
+    for(int i=0;i<N;i++)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        cin>>ar[i];
+        cnts[ar[i]]++;
+    }
+
+    int fac = N - 2;
+    for(int i=0;i<N;i++)
+    {
+        int div = fac/ar[i];
+        if(fac%ar[i] == 0 && cnts[div] > (div==ar[i]))
+        {
+            cout << ar[i] << ' ' << div << '\n';
+            break;
+        }
     }
 }
 

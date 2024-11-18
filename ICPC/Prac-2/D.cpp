@@ -6,16 +6,28 @@ void solve()
     int N;
     cin>>N;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    string s;
+    cin>>s;
+
+    int scores[N+1];
+    for(int i=1;i<=N;i++)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        cin>>scores[i];
     }
+
+    vector<vector<vector<int>>> dp(N+1,vector<vector<int>>(N+1,vector<int>(N+1,-1)));
+
+    auto solvedp = [&](int in,int start,int ennd,auto && solvedp)->int
+    {
+        string prevstr = {s.begin()+start,s.begin()+ennd};
+
+        for(int i=in;i<N;i++)
+        {
+            if()
+        }
+    };
+
+    cout << solvedp(0,0,0,solvedp) << '\n';
 }
 
 signed main()

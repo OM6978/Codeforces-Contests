@@ -3,7 +3,11 @@ using namespace std;
 
 void solve()
 {
-    
+    int N;
+    cin>>N;
+
+    vector<vector<int>> lol(N);
+    lol[0].push_back(1);
 }
 
 signed main()
@@ -15,10 +19,8 @@ signed main()
 
     ios_base::sync_with_stdio(0);
     cin.tie(0);
-    
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+
+    solve();
     
     return 0;
 }

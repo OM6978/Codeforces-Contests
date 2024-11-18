@@ -6,16 +6,25 @@ void solve()
     int N;
     cin>>N;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    if(N<=4)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        cout << -1 << '\n';
+        return;
     }
+
+    for(int i=1;i<=N;i+=2)
+    {
+        if(i==5)continue;
+        cout << i << ' ';
+    }
+
+    cout << 5 << ' ' << 4 << ' ';
+    for(int i=2;i<=N;i+=2)
+    {
+        if(i==4)continue;
+        cout << i << ' ';
+    }
+    cout << '\n';
 }
 
 signed main()

@@ -6,16 +6,23 @@ void solve()
     int N;
     cin>>N;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    int ar[N];
+    for(int i=0;i<N;i++)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        cin>>ar[i];
     }
+
+    for(int i=1;i<N;i++)
+    {
+        int val = abs(ar[i] - ar[i-1]);
+        if(val != 5 && val!=7)
+        {
+            cout << "NO\n";
+            return;
+        }
+    }
+
+    cout << "YES\n";
 }
 
 signed main()

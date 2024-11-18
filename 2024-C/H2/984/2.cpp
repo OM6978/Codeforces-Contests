@@ -3,19 +3,32 @@ using namespace std;
 
 void solve()
 {
-    int N;
-    cin>>N;
+    int N,K;
+    cin>>N>>K;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    map<int,int> bottles;
+    for(int i=0;i<K;i++)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        int b,c;
+        cin>>b>>c;
+
+        bottles[b]+=c;
     }
+
+    multiset<int,greater<int>> ms;
+    for(auto [x,y] : bottles)
+    {
+        ms.insert(y);
+    }
+
+    int least = min(N,(int)ms.size()),ans=0;
+    while(least--)
+    {
+        ans+= *ms.begin();
+        ms.erase(ms.begin());
+    }
+
+    cout << ans << '\n';
 }
 
 signed main()

@@ -6,16 +6,23 @@ void solve()
     int N;
     cin>>N;
 
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
+    int freqz[N+1];
+    for(int i=1;i<=N;i++)freqz[i] = 0;
+
+    int ar[N];
+    for(int i=0;i<N;i++)
     {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        cin>>ar[i];
+        freqz[ar[i]]++;
     }
+
+    int ans = 0;
+    for(int i=1;i<=N;i++)
+    {
+        ans += freqz[i]/2;
+    }
+
+    cout << ans << '\n';
 }
 
 signed main()

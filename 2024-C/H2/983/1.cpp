@@ -5,20 +5,9 @@ void solve()
 {
     int N;
     cin>>N;
-
-    vector<vector<int>> graph(N+1);
-    
-    for(int i=0;i<N-1;i++)
-    {
-        int u,v;
-        cin>>u>>v;
-    
-        graph[u].push_back(v);
-        graph[v].push_back(u);
-    }
 }
 
-signed main()
+int main()
 {
     #ifndef ONLINE_JUDGE
         freopen("/home/om/Acads/Codeforces-Contests/input.txt", "r", stdin);
