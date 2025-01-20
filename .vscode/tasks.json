@@ -1,0 +1,33 @@
+{
+    "tasks": [
+        {
+            "label": "Run C++",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",
+                "${file}",
+                "-o",
+                "${fileDirname}/${fileBasenameNoExtension}.exe"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Compiles and runs a C++ file"
+        },
+        {
+            "label": "Run Executable",
+            "type": "shell",
+            "command": "${fileDirname}/${fileBasenameNoExtension}.exe",
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [],
+            "detail": "Executes the compiled C++ file"
+        }
+    ],
+    "version": "2.0.0"
+}

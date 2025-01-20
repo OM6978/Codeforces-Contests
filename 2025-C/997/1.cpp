@@ -1,26 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void makescore(int a,int b,int & score)
-{
-    if(a>b)score++;
-    else if(a<b)score--;
-}
-
-int get_num(int a1,int a2,int b1,int b2)
-{
-    int score = 0;
-    makescore(a1,b1,score);
-    makescore(a2,b2,score);
-    return 2*(score>0);
-}
-
 void solve()
 {
-    int a1,a2,b1,b2;
-    cin>>a1>>a2>>b1>>b2;
+    int N,M;
+    cin>>N>>M;
 
-    cout << get_num(a1,a2,b1,b2) + get_num(a1,a2,b2,b1) << '\n';
+    int x,y;
+    cin>>x>>y;
+
+    int ans = 4*M;
+    for(int i=1;i<N;i++)
+    {
+        cin>>x>>y;
+        ans += 4*M - 2*(M-x) - 2*(M-y);
+    }
+
+    cout << ans << '\n';
 }
 
 signed main()
@@ -31,7 +27,7 @@ signed main()
     #endif
 
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(NULL);cout.tie(NULL);
     
     int Testcases;
     cin>>Testcases;

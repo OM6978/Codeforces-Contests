@@ -20,8 +20,6 @@ void solve()
         most = max(ar[i],most);
         if(most==i+1)potent.insert(i+1);
     }
-
-    set<int> given;
     
     int useless=0;
     for(int i=0;i<N-1;i++)
@@ -29,7 +27,6 @@ void solve()
         if(s[i] == 'L' && s[i+1] == 'R')
         {
             if(potent.find(i+1)==potent.end())useless++;
-            given.insert(i+1);
         }
     }
 
@@ -43,13 +40,10 @@ void solve()
             s[arg-1] = 'R';
             if(arg!=1 && s[arg-2] == 'L')
             {
-                int lol = arg-1;
-                given.insert(lol);
-                if(potent.find(lol) == potent.end())useless++;
+                if(potent.find(arg-1) == potent.end())useless++;
             }
             if(arg!=N && s[arg] == 'R')
             {
-                given.erase(arg);
                 if(potent.find(arg) == potent.end())useless--;
             }
         }
@@ -58,13 +52,10 @@ void solve()
             s[arg-1] = 'L';
             if(arg!=1 && s[arg-2] == 'L')
             {
-                int lol = arg-1;
-                given.erase(lol);
-                if(potent.find(lol) == potent.end())useless--;
+                if(potent.find(arg-1) == potent.end())useless--;
             }
             if(arg!=N && s[arg] == 'R')
             {
-                given.insert(arg);
                 if(potent.find(arg) == potent.end())useless++;
             }
         }

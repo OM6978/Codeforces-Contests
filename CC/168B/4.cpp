@@ -1,26 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void makescore(int a,int b,int & score)
+int dothething(int i,int * ar,int N,int* prexor)
 {
-    if(a>b)score++;
-    else if(a<b)score--;
-}
+    if(i>=N)return 0;
+    int x = ar[i];
 
-int get_num(int a1,int a2,int b1,int b2)
-{
-    int score = 0;
-    makescore(a1,b1,score);
-    makescore(a2,b2,score);
-    return 2*(score>0);
 }
 
 void solve()
 {
-    int a1,a2,b1,b2;
-    cin>>a1>>a2>>b1>>b2;
+    int N;
+    cin>>N;
 
-    cout << get_num(a1,a2,b1,b2) + get_num(a1,a2,b2,b1) << '\n';
+    int ar[N];
+    int prexor[N];
+    prexor[0] = ar[0];
+
+    map<int,vector<int>> mm;
+    for(int i=0;i<N;i++)
+    {
+        cin>>ar[i];
+        if(i!=0)prexor[i] = prexor[i-1]^ar[i];
+    }
+
+    int vis[N];
+    for(int i=0;i<N;i++)
+    {
+
+    }
 }
 
 signed main()
@@ -31,7 +39,7 @@ signed main()
     #endif
 
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(NULL);cout.tie(NULL);
     
     int Testcases;
     cin>>Testcases;

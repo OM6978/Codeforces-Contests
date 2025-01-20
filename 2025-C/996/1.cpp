@@ -3,10 +3,14 @@ using namespace std;
 
 void solve()
 {
-    int N;
-    cin>>N;
+    int N,a,b;
+    cin>>N>>a>>b;
 
-    while(N--)cout<<N<<'\n';
+    if((a-b)&1)
+    {
+        cout << "NO\n";
+    }
+    else cout << "YES\n";
 }
 
 signed main()
@@ -17,7 +21,7 @@ signed main()
     #endif
 
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(NULL);cout.tie(NULL);
     
     int Testcases;
     cin>>Testcases;

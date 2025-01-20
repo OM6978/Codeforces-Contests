@@ -1,26 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void makescore(int a,int b,int & score)
-{
-    if(a>b)score++;
-    else if(a<b)score--;
-}
-
-int get_num(int a1,int a2,int b1,int b2)
-{
-    int score = 0;
-    makescore(a1,b1,score);
-    makescore(a2,b2,score);
-    return 2*(score>0);
-}
+vector<int> dp;
 
 void solve()
 {
-    int a1,a2,b1,b2;
-    cin>>a1>>a2>>b1>>b2;
+    int N;
+    cin>>N;
 
-    cout << get_num(a1,a2,b1,b2) + get_num(a1,a2,b2,b1) << '\n';
+    int ans = lower_bound(dp.begin(),dp.end(),N) - dp.begin() + 1;
+    cout << ans << '\n';
 }
 
 signed main()
@@ -29,6 +18,12 @@ signed main()
         freopen("/home/om/Acads/Codeforces-Contests/input.txt", "r", stdin);
         freopen("/home/om/Acads/Codeforces-Contests/output.txt", "w", stdout);
     #endif
+
+    dp.push_back(1);
+    while(dp.back()<1e5)
+    {
+        dp.push_back(dp.back()*2 + 2);
+    }
 
     ios_base::sync_with_stdio(0);
     cin.tie(0);

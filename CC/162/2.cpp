@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void makescore(int a,int b,int & score)
-{
-    if(a>b)score++;
-    else if(a<b)score--;
-}
-
-int get_num(int a1,int a2,int b1,int b2)
-{
-    int score = 0;
-    makescore(a1,b1,score);
-    makescore(a2,b2,score);
-    return 2*(score>0);
-}
-
 void solve()
 {
-    int a1,a2,b1,b2;
-    cin>>a1>>a2>>b1>>b2;
+    int N;
+    cin>>N;
 
-    cout << get_num(a1,a2,b1,b2) + get_num(a1,a2,b2,b1) << '\n';
+    int br[N];
+    for(int i=1;i<N;i++)
+    {
+        cin>>br[i];
+    }
+    br[0] = 0;
+
+    sort(br,br+N);
+
+    int last = 1;
+    cout << 1 << ' ';
+    for(int i=1;i<N;i++)
+    {
+        cout << br[i] - last << ' ';
+        last = br[i] - last;
+    }
+    cout << '\n';
 }
 
 signed main()

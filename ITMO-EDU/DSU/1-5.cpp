@@ -1,31 +1,37 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int get_a(int a,int* P)
+#define ump unordered_map
+
+struct custom_hash {
+    static uint64_t splitmix64(uint64_t x) {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
+
+    size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
+
+int get_a(int a,int* P){return P[a];}
+
+void union_s(int a,int b,int* P,ump <int,vector<int>,custom_hash> & mp)
 {
-    if(P[a] != a)return get_a(P[a],P);
-    return P[a];
-}
+    if(P[a]==P[b])return;
 
-void union_s(int a,int b,int* P,int* rank)
-{
-    int l1 = get_a(a,P);
-    int l2 = get_a(b,P);
+    if(mp[P[a]].size() > mp[P[b]].size())swap(a,b);
 
-    if(l1 == l2)return;
-    if(rank[l1] > rank[l2])swap(l1,l2);
+    vector<int> & v1 = mp[P[b]];
+    vector<int> & v2 = mp[P[a]];
 
-    P[l1]=l2;
-    rank[l2]+= (rank[l1]==rank[l2]);
-}
+    for(int x : v2)P[x] = P[b];
 
-int find_time(int a,int* P,int M,vector<int> & time)
-{
-    static int root = get_a(1,P);
-
-    if(time[a]!=M)return time[a];
-    else if(get_a(a,P) == root)return time[a] = find_time(P[a],P,M,time);
-    else return 0;
+    v1.insert(v1.end(),v2.begin(),v2.end());
+    v2.clear();
 }
 
 void solve()
@@ -47,14 +53,15 @@ void solve()
         currhands[inp[i][0]][inp[i][1]] = -1;
     }
 
-    int P[N+1],rank[N+1];
-    for(int i=1;i<=N;i++)P[i]=i,rank[i]=1;
+    ump <int,vector<int>,custom_hash> mp;
+    int P[N+1];
+    for(int i=1;i<=N;i++)mp[i].push_back(i),P[i] = i;
     
     for(int i=1;i<=N;i++)
     {
         auto & v = currhands[i];
-        if(v[1]!=-1)union_s(i,v[1],P,rank);
-        if(v[2]!=-1)union_s(i,v[2],P,rank);
+        if(v[1]!=-1)union_s(i,v[1],P,mp);
+        if(v[2]!=-1)union_s(i,v[2],P,mp);
     }
 
     vector<int> ans(N+1,-1);
@@ -74,15 +81,21 @@ void solve()
 
         int p1 = get_a(monk,P),p2 = get_a(hands[monk][hand],P);
         
-        if(p1 == root && p2!=root)ans[hands[monk][hand]] = i;
-        else if(p2 == root && p1!=root)ans[monk] = i;
+        int pp = -1;
+        if(p1 == root && p2!=root)pp = p2;
+        else if(p2 == root && p1!=root)pp = p1;
 
-        union_s(monk,hands[monk][hand],P,rank);
+        if(pp!=-1)
+        {
+            for(int x : mp[pp])ans[x] = i;
+        }
+
+        union_s(monk,hands[monk][hand],P,mp);
     }
 
     for(int i=1;i<=N;i++)
     {
-        cout << find_time(i,P,M,ans) << '\n';
+        cout << ans[i] << '\n';
     }
 }
 

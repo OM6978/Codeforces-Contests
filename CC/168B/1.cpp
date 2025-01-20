@@ -1,26 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void makescore(int a,int b,int & score)
-{
-    if(a>b)score++;
-    else if(a<b)score--;
-}
-
-int get_num(int a1,int a2,int b1,int b2)
-{
-    int score = 0;
-    makescore(a1,b1,score);
-    makescore(a2,b2,score);
-    return 2*(score>0);
-}
-
 void solve()
 {
-    int a1,a2,b1,b2;
-    cin>>a1>>a2>>b1>>b2;
+    int N;
+    cin>>N;
 
-    cout << get_num(a1,a2,b1,b2) + get_num(a1,a2,b2,b1) << '\n';
+    string A,B;
+    cin>>A>>B;
+
+    int choices = 0,ones = 0;
+    for(int i=0;i<N;i++)
+    {
+        if(A[i] == B[i])
+        {
+            if(A[i]=='1')ones++;
+        }
+        else choices++;
+    }
+
+    if(choices > 0 || ones%2 == 1)cout << "YES\n";
+    else cout << "NO\n";
 }
 
 signed main()

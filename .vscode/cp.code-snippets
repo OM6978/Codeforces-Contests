@@ -18,7 +18,7 @@
 			"    #endif",
 			"",
 			"    ios_base::sync_with_stdio(0);",
-			"    cin.tie(0);",
+			"    cin.tie(NULL);cout.tie(NULL);",
 			"    ",
 			"    solve();",
 			"",
@@ -47,7 +47,7 @@
 			"    #endif",
 			"",
 			"    ios_base::sync_with_stdio(0);",
-			"    cin.tie(0);",
+			"    cin.tie(NULL);cout.tie(NULL);",
 			"    ",
 			"    int Testcases;",
 			"    cin>>Testcases;",
@@ -62,7 +62,7 @@
 	  "arrayinput": {
 		"prefix": "arrrrrinp",
 		"body": [
-		  "int ar[N];",
+		  "vector<int> ar(N);",
 		  "for(int i=0;i<N;i++)",
 		  "{",
 		  "    cin>>ar[i];",
@@ -263,7 +263,7 @@
 	  "Take Matrix Input": {
 		"prefix": "maaaaaaatinp",
 		"body": [
-			"int mat[N][M];",
+			"vector<vector<int>> mat(N,vector<int>(M));",
 			"for(int i=0;i<N;i++)",
 			"{",
 			"    for(int j=0;j<M;j++)",
@@ -353,5 +353,26 @@
 			"        }"
 		],
 		"description": "Palindrome checking"
+	},
+	"Transpose a Matrix": {
+	"prefix": "transpose_mat",
+	"body": [
+		"void transpose(vector<vector<int>>& mat, vector<vector<int>>& res)",
+		"{",
+		"    int rows = mat.size();      ",
+		"    int cols = mat[0].size();   ",
+		"",
+		"    res.resize(cols, vector<int>(rows));",
+		"",
+		"    for (int i=0;i<rows;i++)",
+		"    {",
+		"        for (int j=0;j<cols;j++)",
+		"        {",
+		"            res[j][i] = mat[i][j]; ",
+		"        }",
+		"    }",
+		"}"
+	],
+	"description": "Transpose a Matrix"
 	}
 }

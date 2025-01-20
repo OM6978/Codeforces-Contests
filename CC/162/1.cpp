@@ -1,24 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int solve(vector<int> &A,vector<int> &B)
+void solve()
 {
-    int N = A.size();
-    int pre[N+1];
-    pre[0] = -1e9;
-    for(int i=0;i<N;i++)pre[i+1] = max(pre[i],A[i]);
+    int N;
+    cin>>N;
 
-    int suf[N+1];
-    suf[N] = -1e9;
-    for(int i=N-1;i>=0;i--)suf[i] = max(suf[i+1],B[i]);
-
-    int ans = 0;
+    int ar[N],sum=0;
     for(int i=0;i<N;i++)
     {
-        ans = min(ans,max(pre[i+1],suf[i]));
+        cin>>ar[i];
+        sum+=ar[i];
     }
 
-    return ans;
+    int thres = (N+1)*50 - sum;
+    if(thres <= 0)cout << 0 << '\n';
+    else if(thres > 100)cout << -1 << '\n';
+    else cout << thres << '\n';
 }
 
 signed main()
@@ -30,6 +28,10 @@ signed main()
 
     ios_base::sync_with_stdio(0);
     cin.tie(0);
+    
+    int Testcases;
+    cin>>Testcases;
+    while(Testcases--)solve();
     
     return 0;
 }
