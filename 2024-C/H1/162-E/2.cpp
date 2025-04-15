@@ -1,102 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#define space " "
-#define endl '\n'
-#define p_int pair<int,int>
-#define v_int vector<int>
-
-v_int neg,pos,hneg,hpos;
-
-int shoot(int N, int K)
-{
-    int inc=0,down=0;
-
-    while(1)
-    {
-        int bullets = K;
-        while(bullets!=0)
-        {
-            if(pos[0]>=abs(neg[0]))
-            {
-                if(hpos[0]>K){bullets=0;hpos[0]-=K;}
-                else if(hpos[0]==K)
-                {
-                    bullets=0;
-                    pos.erase(pos.begin());
-                    hpos.erase(hpos.begin());
-                    down++;
-                }
-                else
-                {
-                    bullets-=hpos[0];
-                    pos.erase(pos.begin());
-                    hpos.erase(hpos.begin());
-                    down++;
-                }
-            }
-            else
-            {
-                if(hneg[0]>K){bullets=0;hneg[0]-=K;}
-                else if(hneg[0]==K)
-                {
-                    bullets=0;
-                    neg.erase(neg.begin());
-                    hneg.erase(hneg.begin());
-                    down++;
-                }
-                else
-                {
-                    bullets-=hpos[0];
-                    neg.erase(neg.begin());
-                    hneg.erase(hneg.begin());
-                    down++;
-                }         
-            }
-            if(down == N)return 1;
-        }
-        inc++;
-        if(pos[0]-inc==0 || abs(neg[0])-inc==0)return 0;
-    }
-}
+#define int long long
 
 void solve()
 {
     int N,K;
     cin>>N>>K;
 
-    int temp[N],h[N];
+    vector<pair<int,int>> ar(N);
     for(int i=0;i<N;i++)
     {
-        cin>>temp[i];
-        h[i]=(temp[i]);
+        cin>>ar[i].second;
     }
 
     for(int i=0;i<N;i++)
     {
-        cin>>temp[i];
-        if(temp[i]<0)neg.push_back(temp[i]);
-        else pos.push_back(temp[i]);
+        cin>>ar[i].first;
+        ar[i].first = abs(ar[i].first);
     }
 
+    sort(ar.begin(),ar.end());
+
+    int rem = 0,last = 0;
     for(int i=0;i<N;i++)
     {
-        if(temp[i]<0)hneg.push_back(h[i]);
-        else hpos.push_back(h[i]);
+        rem+= (ar[i].first - last)*K;
+        last = ar[i].first;
+
+        rem -= ar[i].second;
+
+        if(rem < 0)
+        {
+            cout << "NO\n";
+            return;
+        }
     }
 
-    reverse(hneg.begin(),hneg.end());
-    reverse(neg.begin(),neg.end());
-
-    int ans = shoot(N,K);
-    if(ans==1)cout<<"YES"<<endl;
-    else cout<<"NO"<<endl;
+    cout << "YES\n";
 }
 
 signed main()
 {
+    #ifndef ONLINE_JUDGE
+        freopen("/home/om/Acads/Codeforces-Contests/input.txt", "r", stdin);
+        freopen("/home/om/Acads/Codeforces-Contests/output.txt", "w", stdout);
+    #endif
+
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(NULL);cout.tie(NULL);
     
     int Testcases;
     cin>>Testcases;
