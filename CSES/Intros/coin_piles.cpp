@@ -1,25 +1,24 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define int long long
+
 void solve()
 {
-    int N;
-    cin>>N;
+    int a,b;
+    cin>>a>>b;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
+    int diff = llabs(a - b);
+    int least = min(a,b);
+    int left = least - diff;
 
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    if(diff > least || (left%3 != 0))
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
+        cout << "NO\n";
+        return;
     }
 
-    cout << count << '\n';
+    cout << "YES\n";
 }
 
 signed main()

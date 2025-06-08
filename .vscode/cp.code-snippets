@@ -374,5 +374,18 @@
 		"}"
 	],
 	"description": "Transpose a Matrix"
+	},
+
+	"Grid Functions for Graphs": {
+	"prefix": "gridFuncs",
+	"body": [
+		"vector<pair<int,int>> chngs = {{1,0},{0,1},{-1,0},{0,-1}};",
+		"",
+		"int isValid(int i,int j,int N,int M)",
+		"{",
+		"    return (i>=0 && i<N && j>=0 && j<M);",
+		"}"
+	],
+	"description": "Grid Functions for Graphs"
 	}
 }

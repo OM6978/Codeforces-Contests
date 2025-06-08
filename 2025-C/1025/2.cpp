@@ -1,25 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define int long long
+
 void solve()
 {
-    int N;
-    cin>>N;
+    int n,m,a,b;
+    cin>>n>>m>>a>>b;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
+    vector<int> ar = {ceil(log2(a)) + ceil(log2(m)),ceil(log2(n-a+1)) + ceil(log2(m)),ceil(log2(b)) + ceil(log2(n)),ceil(log2(m-b+1)) + ceil(log2(n))};
+    int val = *min_element(ar.begin(),ar.end());
 
-    int count = 0;
-    for(int i=1;i<N-1;i++)
-    {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
-    }
-
-    cout << count << '\n';
+    cout << val + 1 << '\n';
 }
 
 signed main()

@@ -1,25 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define int long long
+
+int getperm(int i,int x,int y,vector<int> & ar)
+{
+    int N = ar.size();
+    if(i == N)
+    {
+        return llabs(y - x);
+    }
+
+    int least = min(getperm(i+1,x+ar[i],y,ar),getperm(i+1,x,y+ar[i],ar));
+
+    return least;
+}
+
 void solve()
 {
     int N;
     cin>>N;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    vector<int> ar(N);
+    for(int i=0;i<N;i++)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
+        cin>>ar[i];
     }
 
-    cout << count << '\n';
+    cout << getperm(0,0,0,ar) << '\n';
 }
 
 signed main()
@@ -32,9 +40,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);cout.tie(NULL);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+    solve();
     
     return 0;
 }

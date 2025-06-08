@@ -3,23 +3,26 @@ using namespace std;
 
 void solve()
 {
-    int N;
-    cin>>N;
+    string s;
+    cin>>s;
+    
+    int curr = '0',cnt = 0;;
+    int most = 0;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    for(int x : s)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
+        if(x != curr)
         {
-            count++;
+            most = max(most,cnt);
+            cnt = 1;
+            curr = x;
         }
+        else cnt++;
     }
 
-    cout << count << '\n';
+    most = max(most,cnt);
+
+    cout << most << '\n';
 }
 
 signed main()
@@ -32,9 +35,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);cout.tie(NULL);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+    solve();
     
     return 0;
 }

@@ -5,21 +5,31 @@ void solve()
 {
     int N;
     cin>>N;
+    
+    vector<int> ar(N);
+    int zer = 0,conzer = 0;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    for(int i=0;i<N;i++)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
+        cin>>ar[i];
+        if(ar[i] == 0)
         {
-            count++;
+            zer = 1;
+            if(i>0)
+            {
+                if(ar[i-1] == 0)
+                {
+                    conzer = 1;
+                }
+            }
         }
     }
 
-    cout << count << '\n';
+    if(zer == 0 || conzer == 1)
+    {
+        cout << "YES\n";
+    }
+    else cout << "NO\n";
 }
 
 signed main()

@@ -1,25 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define int long long
+
 void solve()
 {
     int N;
     cin>>N;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
+    int twos = 0;
+    int fives = 0;
 
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    int div = 2;
+    for(int i = 1;i<=31;i++)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
+        twos += N / div;
+        div*=2;
     }
 
-    cout << count << '\n';
+    div = 5;
+    for(int i=1;i<=20;i++)
+    {
+        fives += N / div;
+        
+        div *=5;
+
+        if(div > N)break;
+    }
+
+    cout << min(twos,fives) << '\n';
 }
 
 signed main()
@@ -32,9 +41,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);cout.tie(NULL);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+    solve();
     
     return 0;
 }

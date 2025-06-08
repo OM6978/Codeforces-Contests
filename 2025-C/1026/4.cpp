@@ -3,23 +3,7 @@ using namespace std;
 
 void solve()
 {
-    int N;
-    cin>>N;
-
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
-    {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
-    }
-
-    cout << count << '\n';
+    
 }
 
 signed main()

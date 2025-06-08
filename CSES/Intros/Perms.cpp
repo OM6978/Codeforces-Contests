@@ -6,20 +6,23 @@ void solve()
     int N;
     cin>>N;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    if(N<4 && N!=1)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
+        cout << "NO SOLUTION\n";
+        return;
     }
 
-    cout << count << '\n';
+    for(int i=2;i<=N;i+=2)
+    {
+        cout << i << ' ';
+    }
+
+    for(int i=1;i<=N;i+=2)
+    {
+        cout << i << ' ';
+    }
+
+    cout << '\n';
 }
 
 signed main()
@@ -32,9 +35,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);cout.tie(NULL);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+    solve();
     
     return 0;
 }

@@ -1,25 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define int long long 
+
 void solve()
 {
     int N;
     cin>>N;
 
-    vector<string> vs(2);
-    cin>>vs[0];
-    cin>>vs[1];
-
-    int count = 0;
-    for(int i=1;i<N-1;i++)
+    vector<int> ar(N);
+    for(int i=0;i<N;i++)
     {
-        if(vs[0][i] == '1' && vs[1][i] == '1')
-        {
-            count++;
-        }
+        cin>>ar[i];
     }
 
-    cout << count << '\n';
+    int mvs = 0;
+    for(int i=1;i<N;i++)
+    {
+        mvs += max(0LL,ar[i-1] - ar[i]);
+        ar[i] = max(ar[i],ar[i-1]);
+    }
+
+    cout << mvs << '\n';
 }
 
 signed main()
@@ -32,9 +34,7 @@ signed main()
     ios_base::sync_with_stdio(0);
     cin.tie(NULL);cout.tie(NULL);
     
-    int Testcases;
-    cin>>Testcases;
-    while(Testcases--)solve();
+    solve();
     
     return 0;
 }
