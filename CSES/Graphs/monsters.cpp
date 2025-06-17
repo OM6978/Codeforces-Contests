@@ -62,7 +62,7 @@ void solve()
     int N,M;
     cin>>N>>M;
 
-    vector<vector<int>> mat(N,vector<int>(M));
+    vector<vector<int>> mat(N+1,vector<int>(M+1));
 
     int sr,sc,er,ec;
     for(int i=0;i<N;i++)
@@ -86,24 +86,7 @@ void solve()
         }
     }
 
-    if(findPath(0,sr,sc,mat))
-    {
-        cout << "YES\n";
-        
-        string out;
-        int x = er,y = ec;
-        while(mat[x][y]!='A')
-        {
-            int cx = par[x][y].first , cy = par[x][y].second;
-            out.push_back(chngDict[{x - cx,y - cy}]);
-            x = cx,y = cy;
-        }
-
-        reverse(out.begin(),out.end());
-        cout << out.size() << '\n';
-        cout << out << '\n';
-    }
-    else cout << "NO\n";
+    
 }
 
 signed main()
@@ -117,6 +100,6 @@ signed main()
     cin.tie(NULL);cout.tie(NULL);
     
     solve();
-    
+
     return 0;
 }
