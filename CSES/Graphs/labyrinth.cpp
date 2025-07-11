@@ -12,7 +12,7 @@ bool isValid(int i,int j,vector<vector<int>> & mat,vector<vector<int>> & vis)
     return (i>=0 && i<N && j>=0 && j<M && mat[i][j] != '#' && vis[i][j] == 0);
 }
 
-bool findPath(int steps,int row,int col,vector<vector<int>> & mat)
+bool findPath(int row,int col,vector<vector<int>> & mat)
 {
     int N = mat.size(),M = mat[0].size();
     vector<vector<int>> vis(N,vector<int> (M,0));
@@ -86,7 +86,7 @@ void solve()
         }
     }
 
-    if(findPath(0,sr,sc,mat))
+    if(findPath(sr,sc,mat))
     {
         cout << "YES\n";
         

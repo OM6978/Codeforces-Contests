@@ -1,40 +1,68 @@
 #include <bits/stdc++.h>
-
 using namespace std;
-typedef long long ll;
-const int maxN = 100;
-const int maxX = 1e6;
 
-int N, X, ar[maxN],br[maxN];
-ll dp[maxX+1];
-
-int main()
+int solvedp(int in,int left,vector<int> & price,vector<int> & pages,vector<vector<int>> & dp)
 {
-    scanf("%d %d", &N, &X);
-    for(int i = 0; i < N; i++)
+    static int N = dp.size();
+
+    if(in == N)return 0;
+    if(dp[in][left]!=0)return dp[in][left];
+
+    int ans = 0;
+
+    if(price[in] <= left)ans = solvedp(in+1,left - price[in],price,pages,dp) + pages[in];
+    ans = max(ans,solvedp(in+1,left,price,pages,dp));
+
+    return dp[in][left] = ans;
+}
+
+void solve()
+{
+    int N,x;
+    cin>>N>>x;
+    
+    vector<int> price(N),pages(N);
+    for(int i=0;i<N;i++)
     {
-        scanf("%d", &ar[i]);
+        cin>>price[i];
     }
 
-    for(int i = 0; i < N; i++)
+    for (int i=0; i<N; i++)
     {
-        scanf("%d", &br[i]);
+        cin>>pages[i];
     }
+    
+    vector<vector<int>> dp(N+1,vector<int> (x+1,0));
 
-    dp[0] = 0;
-    for(int j = 0; j < N; j++)
+    // Memoization
+    
+    // cout << solvedp(0,x,price,pages,dp) << '\n';
+
+    // Tabulation
+
+    for(int i=N-1;i>=0;i--)
     {
-        for(int i = 0; i < X; i++)
+        for(int p=x;p>=0;p--)
         {
-            if(i==0 || dp[i] != 0)
-            {
-                    if(i+ar[j] <= X)
-                    {
-                        dp[i+ar[j]] = max(dp[i+ar[j]],dp[i] + br[j]);
-                    }
-            }
+            if(p < price[i])dp[i][p] = dp[i+1][p];
+            else dp[i][p] = max(dp[i+1][p - price[i]] + pages[i],dp[i+1][p]);
         }
     }
 
-    printf("%lld\n", *max_element(dp,dp + maxX+1));
+    cout << dp[0][x] << '\n';
+}
+
+signed main()
+{
+    #ifndef ONLINE_JUDGE
+        freopen("/home/om/Acads/Codeforces-Contests/input.txt", "r", stdin);
+        freopen("/home/om/Acads/Codeforces-Contests/output.txt", "w", stdout);
+    #endif
+
+    ios_base::sync_with_stdio(0);
+    cin.tie(NULL);cout.tie(NULL);
+    
+    solve();
+
+    return 0;
 }
