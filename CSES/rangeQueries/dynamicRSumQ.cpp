@@ -48,7 +48,7 @@ vector<int> initST(vector<int> & ar)
     while(sz<N)sz<<=1;
 
     vector<int> st(2*sz-1,nullval);
-    for(int i=0;i<ar.size();i++)
+    for(int i=0;i<N;i++)
         setSTWrapper(st,i,ar[i]);
 
     return st;
@@ -56,8 +56,8 @@ vector<int> initST(vector<int> & ar)
 
 void solve()
 {
-    int N,M;
-    cin>>N>>M;
+    int N,Q;
+    cin>>N>>Q;
 
     vector<int> ar(N);
     for(int i=0;i<N;i++)
@@ -65,15 +65,18 @@ void solve()
         cin>>ar[i];
     }
 
-    auto ST = initST(ar);
+    auto st = initST(ar);
 
-    while(M--)
+    while(Q--)
     {
-        int op,a1,a2;
-        cin>>op>>a1>>a2;
+        int op,a,b;
+        cin>>op>>a>>b;
 
-        if(op == 1)setSTWrapper(ST,a1,a2);
-        else cout << getSTWrapper(ST,a1,a2) << '\n';
+        if(op == 1)
+        {
+            setSTWrapper(st,a-1,b);
+        }
+        else cout << getSTWrapper(st,a-1,b) << '\n';
     }
 }
 
@@ -85,9 +88,9 @@ signed main()
     #endif
 
     ios_base::sync_with_stdio(0);
-    cin.tie(0);
-
-    solve();
+    cin.tie(NULL);cout.tie(NULL);
     
+    solve();
+
     return 0;
 }
